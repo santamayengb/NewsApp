@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/logic/cubit/news_feed_cubit.dart';
 import 'package:newapp/pages/home/myhome_page.dart';
+import 'package:newapp/pages/news_feed/news_feed.page.dart';
+import 'package:newapp/service/service.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final service = Service();
 
   // This widget is the root of your application.
   @override
@@ -12,7 +18,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<NewsFeedCubit>(
+            create: (context) => NewsFeedCubit(service: service),
+          ),
+        ],
+        child: const NewsFeedPage(),
+      ),
     );
   }
 }
