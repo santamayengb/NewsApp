@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List category = [
+  List newCategory = [
     "All",
     "National",
     "Business",
@@ -29,10 +29,16 @@ class _MyHomePageState extends State<MyHomePage> {
     "Science",
     "Automobile"
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Service().getData();
+  }
+
   String? cateType;
   @override
   Widget build(BuildContext context) {
-    Service().getData();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
@@ -40,35 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
           bottom: Tab(
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: [
-                for (var item in category)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        switch (item) {
-                          case "All":
-                            setState(() {
-                              cateType = "All";
-                            });
-                            break;
-                          case "National":
-                            setState(() {
-                              cateType = "National";
-                            });
-                            break;
-                          case "Business":
-                            setState(() {});
-                            break;
-                        }
+              children: newCategory
+                  .map((e) => TextButton(
+                      onPressed: () {
+                        log(e);
                       },
-                      child: Text(
-                        item,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-              ],
+                      child: Text(e)))
+                  .toList(),
             ),
           ),
         ),
