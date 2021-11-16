@@ -60,9 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ? all()
             : cateType == "National"
                 ? national()
-                : all()
-        ///////////////////
-        );
+                : all());
   }
 
   Widget all() {
