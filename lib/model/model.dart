@@ -1,0 +1,1 @@
+export './newsmodel.dart';
